@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Menu, Header, Segment, Button, Icon, Container} from 'semantic-ui-react';
+import React, {Component, createRef} from 'react';
+import {Menu, Header, Segment, Button, Icon, Container, Rail, Sticky} from 'semantic-ui-react';
 import Router from 'next/router';
 import Link from 'next/link';
 import web3 from '../ethereum/web3';
@@ -7,15 +7,33 @@ import web3 from '../ethereum/web3';
 class NavBar extends Component {
 
     onClick = async () => {
-        const accounts = await web3.eth.getAccounts();
-        const userAddress = accounts[0];
-        Router.push('/[userAddress]/orders/approvals',`/${userAddress}/orders/approvals`);
+        try
+        {
+            console.log('Using'+window.web3.currentProvider);
+            const accounts = await web3.eth.getAccounts();
+            const userAddress = accounts[0];
+            Router.push('/[userAddress]/orders/approvals',`/${userAddress}/orders/approvals`);
+        }
+        catch (err)
+        {
+            Router.push('/error');
+        }
     }
     onClick2 = async () => {
-        const accounts = await web3.eth.getAccounts();
-        const userAddress = accounts[0];
-        Router.push('/[userAddress]/orders/show', `/${userAddress}/orders/show`);
+    try
+        {
+            console.log('Using'+window.web3.currentProvider);
+            const accounts = await web3.eth.getAccounts();
+            const userAddress = accounts[0];
+            Router.push('/[userAddress]/orders/show', `/${userAddress}/orders/show`);
+        }
+    catch (err)
+        {
+            Router.push('/error');
+        }
     }
+
+    contextref = createRef();
 
     render() {
         return (
@@ -31,9 +49,9 @@ class NavBar extends Component {
                         </a>
                             </Link>
                 </Header>
+            <Sticky>
             <Segment   
                 inverted
-                style = {{ position: 'sticky'}}
             >             
                 <Menu inverted borderless>
                     <Container>
@@ -66,6 +84,7 @@ class NavBar extends Component {
                     </Container>
                 </Menu>
             </Segment>
+            </Sticky>
             </Segment>
         );
     }

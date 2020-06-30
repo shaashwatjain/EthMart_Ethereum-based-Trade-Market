@@ -4,7 +4,7 @@ import deployer from '../../../../ethereum/deployer';
 import Item from '../../../../ethereum/item';
 import Layout from '../../../../components/layout';
 import _ from 'lodash';
-import {Card, Search} from 'semantic-ui-react';
+import {Card, Search, Header} from 'semantic-ui-react';
 
 const initialState = { isLoading: false, results: [], value: '' };
 
@@ -14,6 +14,7 @@ class Approvals extends Component {
         const contracts = await deployer.methods.getContracts(props.query.userAddress).call();
         let address;
         var details = [];
+        var count = 0;
         for (address of contracts)
         {
             const contract = Item(address);
@@ -26,8 +27,9 @@ class Approvals extends Component {
                 quantity: temp_details[3],
                 seller:temp_details[4]
             });
+            count++;
         }
-        return {details};
+        return {details, count};
     }
 
     retrieveItem = () => {
@@ -106,6 +108,9 @@ class Approvals extends Component {
                 />
                 <h2>Here are all your listed products!</h2>
                 {this.retrieveItem()}
+                <Header as="h3" textAlign="center">
+                    You have listed {this.props.count} products for selling !
+                </Header>
             </Layout>
         )
     }

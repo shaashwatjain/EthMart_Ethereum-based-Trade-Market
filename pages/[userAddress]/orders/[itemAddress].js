@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Layout from '../../../components/layout';
 import Item from '../../../ethereum/item';
-import {Table} from 'semantic-ui-react';
+import {Table, Header} from 'semantic-ui-react';
 import RequestOrderRow from '../../../components/RequestOrderRow';
 
 class Status extends Component {
@@ -29,7 +29,7 @@ class Status extends Component {
             inc++;
         }
         const length = items.length;
-        return {cAddress, seller, items, length, price};
+        return {cAddress, seller, items, length, price, inc};
     }
 
     renderRows() {
@@ -47,13 +47,13 @@ class Status extends Component {
     }
 
     render () {
-        const {Header, Row, HeaderCell, Body} = Table;
+        const { Row, HeaderCell, Body} = Table;
         return (
             <Layout>
                 <h2>Statusboard</h2>
                 <h4>This item is sold by : {this.props.seller}</h4>
                 <Table>
-                    <Header>
+                    <Table.Header>
                         <Row>
                             <HeaderCell>ID</HeaderCell>
                             <HeaderCell>Quantity</HeaderCell>
@@ -61,11 +61,14 @@ class Status extends Component {
                             <HeaderCell>Approval Status</HeaderCell>
                             <HeaderCell>Completion Status</HeaderCell>
                         </Row>
-                    </Header>
+                    </Table.Header>
                     <Body>
                         {this.renderRows()}
                     </Body>
                 </Table>
+                <Header as="h3" textAlign="center">
+                    You have {this.props.inc} number of orders for the item!
+                </Header>
             </Layout>
         )
     }

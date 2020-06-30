@@ -10,11 +10,13 @@ export default props => {
         raised
         vertical>
             <Head>
+                <title>EthMart</title>
+                <link rel="icon" href="http://www.userlogos.org/files/ethereum1.png" type="image/icon type" />
                 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" />
             </Head>
         <NavBar />
         <Container
-        style = {{minHeight: '80vh'}}>
+        style = {{minHeight: '75vh'}}>
         <div style = {{marginTop: '40px', marginBottom: '40px'}}>
             {props.children}
         </div>

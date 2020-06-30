@@ -2,7 +2,7 @@ import React ,{Component} from 'react';
 import {Form, Button, Message, Dropdown} from 'semantic-ui-react';
 import Item from '../ethereum/item';
 import web3 from '../ethereum/web3';
-import {useRouter, Router} from 'next/router';
+import Router from 'next/router';
 
 class BuyNow extends Component {
     state = {
@@ -15,8 +15,7 @@ class BuyNow extends Component {
 
     onSubmit = async (event) => {
         event.preventDefault();
-        const router = useRouter();
-        const {address} = router.props;
+        const {address} = this.props;
         const item = await Item(address);
         this.setState({errorMessage : '', loading: true});
         try {
@@ -31,7 +30,15 @@ class BuyNow extends Component {
         }
         catch (err)
         {
-            this.setState({errorMessage: err.message});
+            try{
+                console.log('Using '+ window.web3.currentProvider);
+                this.setState({errorMessage: err.message});
+            }
+            catch (err)
+            {
+                this.setState({errorMessage: 'Metamask or Wallet not configured!'})
+            }
+            
         }
         this.setState({loading:false});
     }

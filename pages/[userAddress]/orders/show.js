@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import deployer from '../../../ethereum/deployer';
 import Item from '../../../ethereum/item';
 import Layout from '../../../components/layout';
-import {Card, Search} from 'semantic-ui-react';
+import {Card, Search, Header} from 'semantic-ui-react';
 import web3 from '../../../ethereum/web3';
 import _ from 'lodash';
 
@@ -14,6 +14,7 @@ class Show extends Component {
         const address = props.query.userAddress;
         const allContracts = await deployer.methods.getDeployedItems().call();
         var items = [];
+        var count = 0;
         for (var cAddress of allContracts)
         {
             const item = await Item(cAddress);
@@ -28,9 +29,10 @@ class Show extends Component {
                     description: details[1],
                     meta: ethPrice + ' ether'
                 });
+                count++;
             }
         }
-        return {items};
+        return {items, count};
     }
 
     renderCards () {
@@ -89,6 +91,9 @@ class Show extends Component {
                 />
                 <h3>Here are your Orders!</h3>
                 {this.renderCards()}
+                <Header as="h3" textAlign="center" >
+                    You have {this.props.count} items ordered!
+                </Header>
             </Layout>
         );
     }

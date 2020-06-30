@@ -4,21 +4,21 @@ import {Segment, Container, Grid, Header} from 'semantic-ui-react';
 class Footer extends Component {
     render() {
         return (
-            <Segment inverted vertical style={{ padding: '4em 0em', bottom: '0', left: '0', width: '100%', position: 'absolute' }}>
+            <Segment inverted vertical style={{ padding: '4em 0em', bottom: '0', left: '0', width: '100%', position: 'relative' }}>
             <Container>
               <Grid divided inverted stackable >
                 <Grid.Row>
                     <Grid.Column width = {3} verticalAlign = "middle" textAlign = "right">
                         <Header as='h2' inverted>
-                            EthMart
+                            EthMart <sup>©</sup>
                         </Header>
                     </Grid.Column>
                   <Grid.Column width = {7}>
                     <Header as='h4' inverted>
-                      Created for Ethereum Network
+                      Created for Ethereum Network (Rinkeby Test Network only)
                     </Header>
                     <p>
-                      by Shaashwat Jain
+                      by Shaashwat Jain 
                     </p>
                   </Grid.Column>
                 </Grid.Row>
