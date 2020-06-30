@@ -1,0 +1,5 @@
+npm init
+npm install --save ganache-cli solc web3 mocha fs-extra
+npm install --save next react react-dom
+npm install --save truffle-hdwallet-provider
+npm install --save semantic-ui-react next-routes
